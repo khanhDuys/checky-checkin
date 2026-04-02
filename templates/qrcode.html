@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Class QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: monospace;
+            background-color: #f4f6f8;
+        }
+        .card {
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1 style="font-size: 40px; margin-bottom: 10px; color: #333;">Scan to Join Class</h1>
+        <p style="font-size: 20px; color: gray; margin-bottom: 40px;">Use your phone's camera</p>
+        
+        <div id="qrcode" style="display: flex; justify-content: center;"></div>
+    </div>
+
+    <script>
+        // 1. Read the ?session=blahblah from this tab's URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const sessionId = urlParams.get('session');
+
+        if (sessionId) {
+            // 2. Create the URL the student's phone will visit
+            const IP = "10.192.51.237";
+            const checkInUrl = `http://${IP}:8000/student/checkin?session=${sessionId}`;
+            
+            // 3. Draw a massive, high-quality QR code for the projector
+            new QRCode(document.getElementById("qrcode"), {
+                text: checkInUrl,
+                width: 400,
+                height: 400,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        } else {
+            document.body.innerHTML = "<h1>❌ Error: No Session ID provided</h1>";
+        }
+    </script>
+</body>
+</html>

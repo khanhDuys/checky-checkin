@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard - Checky</title>
+</head>
+<body style="text-align: center; padding-top: 50px;">
+    <h1>Dashboard giáo viên</h1>
+    
+    <button onclick="createSession()" style="padding: 10px 20px; font-size: 16px;">
+        Generate Session
+    </button>
+    
+    <p id="result" style="color: gray; margin-top: 20px;"></p>
+    <script>
+        async function createSession() {
+            try {
+                const response = await fetch('/dashboard/sessions/', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        class_name: "skibidi toliet"
+                    })
+                });
+                const data = await response.json();
+                
+                document.getElementById('result').innerText = "Success: " + JSON.stringify(data);
+                const qrURL = `/dashboard/qr?session=${data.session_id}`;
+                window.open(qrURL, "_blank");
+            } catch (error) {
+                console.error(error);
+                document.getElementById('result').innerText = "Error connecting to server.";
+            }
+        }
+    </script>
+</body>
+</html>
+        
