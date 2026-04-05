@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+
+}
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-color: #050325; /* Màu xanh đen đặc trưng của ảnh */
+
+  background-image: 
+    /* Lưới dọc và ngang siêu mảnh */
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    /* Hiệu ứng chéo (slanted) từ góc trên trái xuống góc dưới phải */
+    linear-gradient(200deg, #2a3575 0%, #050325 100%);
+  /* Kích thước ô lưới 40px, dải màu chiếm toàn bộ 100% */
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+  background-position: center;
+}
+/* card */
+.card {
+  background: white;
+  padding: 10px 15px 20px 15px;
+  border-radius: 16px 16px 16px 16px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4);
+}
+
+.card h1 {
+  margin-bottom: 10px;
+  font-style: bold;
+}
+
+/* buttons */
+.btn {
+  width: 100%;
+  padding: 12px;
+  margin: 3px  0px 10px 0px;
+  border: none;
+  border-radius: 16px;
+  background: #37CACF;;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 22px;
+  color: #FFFFFF;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  box-shadow: 0 10px 15px -2px rgba(55, 202, 207, 0.5);
+  border: 2px solid #DEFFF2;
+}
+
+.btn:hover {
+  opacity: 0.85;
+  background-color: #2eb4b8; /* Tối xuống một chút */
+  box-shadow: 0 0 20px 5px rgba(55, 202, 207, 0.8); /* Hào quang rực rỡ hơn */
+  transform: translateY(-2px); /* Nhấc nhẹ nút lên */
+}
+
+/* note */
+.note {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* logo bottom left */
+.logocard {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  color: #39b6b3;
+  opacity: 0.7;
+  margin: 0;
+
+}
+
+.LOGO{
+  display: block;
+  position: relative;
+  bottom: 0;
+}

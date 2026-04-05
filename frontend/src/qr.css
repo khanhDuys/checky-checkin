@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+
+}
+.container-qr {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-color: #050325; /* Màu xanh đen đặc trưng của ảnh */
+
+  background-image: 
+    /* Vẽ lưới dọc và ngang bằng linear-gradient siêu mảnh */
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    /* Hiệu ứng tỏa sáng xanh ở giữa */
+    linear-gradient(200deg, #2a3575 0%, #050325 100%);
+  /* Kích thước ô lưới 40px, dải màu chiếm toàn bộ 100% */
+  background-size: 40px 40px, 40px 40px, 100% 100%;
+  background-position: center;
+}
+/* card */
+.card-qr {
+  background: white;
+  padding: 10px 70px 20px 70px;
+  border-radius: 16px 16px 16px 16px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4);
+}
+
+.card-qr h1 {
+  margin-bottom: 10px;
+  font-style: bold;
+}
+
+/* buttons */
+/* logo bottom left */
+.logocard {
+  position: absolute;
+  bottom: 30px;
+  left: 40px;
+  color: #39b6b3;
+  opacity: 0.7;
+  margin: 0;
+
+}
+
+/* note */
+.note-qr {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.LOGO{
+  display: block;
+  position: relative;
+  bottom: 0;
+}
