@@ -10,7 +10,6 @@ export default function Dashboard() { // Tên hàm phải viết hoa chữ Q
     try {
       setResultMessage("Đang tạo session..."); 
 
-      const API_URL = "https://countable-plotless-aubrielle.ngrok-free.dev"; 
 
       const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/dashboard/sessions/`, { 
         method: 'POST',
@@ -24,8 +23,12 @@ export default function Dashboard() { // Tên hàm phải viết hoa chữ Q
       
       setResultMessage("Success: " + JSON.stringify(data));
       
-      const qrURL = `/qr?session=${data.session_id}`;
-      window.open(qrURL, "_blank");
+      navigate('/qr', { 
+        state: { 
+          sessionId: data.session_id, 
+          seed: data.seed // This comes from your updated FastAPI router!
+        } 
+      });
     } catch (error) {
       console.error(error);
       setResultMessage("Error connecting to server.");

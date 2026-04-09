@@ -21,7 +21,7 @@
                         class_name: "skibidi toliet"
                     })
                 });
-                const data = await response.json();
+                const data = await response.json(); 
                 
                 document.getElementById('result').innerText = "Success: " + JSON.stringify(data);
                 const qrURL = `/dashboard/qr?session=${data.session_id}`;

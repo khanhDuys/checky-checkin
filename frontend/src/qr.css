@@ -25,12 +25,14 @@ body {
 /* card */
 .card-qr {
   background: white;
-  padding: 10px 70px 20px 70px;
-  border-radius: 16px 16px 16px 16px;
-  width: 400px;
+  padding: 20px; /* Reduced side padding to give QR more room */
+  border-radius: 16px;
+  width: 500px; /* Slightly wider to fit a large QR comfortably */
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2), 0 0 15px 2px rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the stack container horizontally */
 }
 
 .card-qr h1 {
@@ -62,3 +64,37 @@ body {
   position: relative;
   bottom: 0;
 }
+
+
+/* This is the magic box that holds the QR and the Circle */
+.qr-stack-container {
+  position: relative;
+  display: inline-block; /* Crucial: makes the div the exact size of the QR canvas */
+  line-height: 0;        /* Removes tiny bottom gaps caused by inline elements */
+  margin: 0px auto;
+}
+
+/* The timer circle */
+.qr-timer-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* This pulls it back to the true center */
+  
+  width: 80px;
+  height: 80px;
+  background-color: #ffffff; 
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  color: #000000;
+  font-size: 2.5rem;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+  z-index: 10;
+}
+

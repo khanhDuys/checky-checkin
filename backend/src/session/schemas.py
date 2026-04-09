@@ -5,5 +5,6 @@ class SessionCreateSchema(BaseModel):
 class SessionResponseSchema(BaseModel):
     message: str
     session_id: UUID4
+    seed: str
     class_name: str
     is_active: bool
