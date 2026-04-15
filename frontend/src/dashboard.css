@@ -1,8 +1,8 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
-
 }
+
 .container-dashboard {
   height: 100vh;
   display: flex;
@@ -22,6 +22,7 @@ body {
   background-size: 40px 40px, 40px 40px, 100% 100%;
   background-position: center;
 }
+
 /* card */
 .card-dashboard {
   background: white;
@@ -79,11 +80,37 @@ body {
   color: #39b6b3;
   opacity: 0.7;
   margin: 0;
-
 }
 
 .LOGO{
   display: block;
   position: relative;
   bottom: 0;
+}
+
+/* =========================================
+   TABLE STYLES IMPORTED FROM FILE B 
+   ========================================= */
+
+/* Bảng hiển thị thông tin gọn gàng */
+.table-container {
+  overflow-x: auto; /* Cuộn ngang nếu bảng quá rộng trên mobile */
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  -webkit-overflow-scrolling: touch; /* Hỗ trợ cuộn mượt trên iOS */
+}
+
+.attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem; 
+  background: #fff;
+  min-width: 400px; /* Giữ kích thước tối thiểu để bảng không bị bóp méo chữ */
+}
+
+.attendance-table th, .attendance-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  white-space: nowrap; /* Tránh rớt dòng nội dung bảng */
 }

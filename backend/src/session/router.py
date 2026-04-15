@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
 from pathlib import Path
-# from database import db
+from database import db
 
 from src.session.schemas import SessionCreateSchema, SessionResponseSchema
 from src.session.service import setup_session
@@ -34,3 +34,4 @@ def close_session(session_id: str):
     #})
     
     return {"message": "Session locked!"}
+

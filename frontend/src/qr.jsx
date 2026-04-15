@@ -8,9 +8,6 @@ import './QR.css'; // Make sure you import the CSS file you created in Step 1!
 export default function QR() {
   const location = useLocation();
 
-  // Temporary debugging log
-  console.log("WHAT IS IN THE RAM?", location.state);
-
   // Extract the invisible RAM data
   const { sessionId, seed } = location.state || {};
   
