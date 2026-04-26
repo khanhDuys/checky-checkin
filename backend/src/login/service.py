@@ -1,7 +1,6 @@
 from fastapi import HTTPException
 from firebase_admin import auth
 from database import db
-
 def verify_and_login_user(token: str):
     try:
         #verify
@@ -10,7 +9,6 @@ def verify_and_login_user(token: str):
         uid = decoded_token.get("uid")
         email = decoded_token.get("email")
         
-        name = decoded_token.get("name", "Unknown Name")
 
 
         teachers_query = db.collection("teachers").where("email", "==", email).limit(1).get()
@@ -22,19 +20,17 @@ def verify_and_login_user(token: str):
                 detail="ACCESS DENIED. EMAIL NOT REGISTERED"
             )
 
-        # 4. If they exist, extract their actual Firestore data
         teacher_doc = teachers_query[0].to_dict()
         
-        # Grab the specific fields you defined in your database schema
         db_role = teacher_doc.get("role", "teacher")
         db_subject = teacher_doc.get("subject", "Unknown Subject")
-
+        db_name = teacher_doc.get("name", "unknown")
         print(f"Teacher logged in successfully: {email} ({db_subject})")
 
         return {
             "uid": uid,
             "email": email,
-            "name": name,
+            "name": db_name,
             "role": db_role,
             "subject": db_subject
         }

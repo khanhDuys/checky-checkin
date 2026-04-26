@@ -1,6 +1,6 @@
-from pydantic import BaseModel, Field, UUID4
+from pydantic import BaseModel,Field,UUID4
 
-class SessionCreateSchema(BaseModel):
+class LoginSchema(BaseModel):
     class_name: str = Field(min_length=3, max_length=50, description="Name of the class")
 class SessionResponseSchema(BaseModel):
     message: str

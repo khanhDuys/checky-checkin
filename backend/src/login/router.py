@@ -23,3 +23,4 @@ def login(token: str = Depends(get_token_from_header)):
         "user": user_data
     }    
 
+

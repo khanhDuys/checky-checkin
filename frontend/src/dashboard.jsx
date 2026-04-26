@@ -4,19 +4,60 @@ import logoChecky from './assets/img/logochecky.png';
 
 export default function Dashboard() { 
   const [resultMessage, setResultMessage] = useState('...');
-  const [attendanceLogs, setAttendanceLogs] = useState([]); // State to hold the table data
+  const [attendanceLogs, setAttendanceLogs] = useState([]); 
+  const [teacherData, setTeacherData] = useState(null);
   const navigate = useNavigate();
 
-  // --- NEW: Polling mechanism to fetch logs every 5 seconds ---
+  // --- NEW: AUTHENTICATION GUARD ---
+  useEffect(() => {
+    const verifyTeacherAuth = async () => {
+      const token = localStorage.getItem('authToken');
+      
+      // 1. If there is no token in local storage, kick them out immediately
+      if (!token) {
+        console.warn("Chưa đăng nhập! Đang chuyển hướng...");
+        navigate('/', { replace: true });
+        return;
+      }
+
+      // 2. If there is a token, double-check it with the backend
+      try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/login/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` 
+          }
+        });
+
+        // 3. If the backend says the token is invalid/expired, kick them out
+        if (!response.ok) {
+          console.warn("Token không hợp lệ hoặc đã hết hạn.");
+          localStorage.clear(); // Wipe the bad data
+          navigate('/', { replace: true });
+        } else {
+          const data = await response.json();
+          setTeacherData(data.user);
+        }
+      } catch (error) {
+        console.error("Lỗi kết nối khi xác thực:", error);
+        localStorage.clear();
+        navigate('/', { replace: true });
+      }
+    };
+
+    verifyTeacherAuth();
+  }, [navigate]);
+  // ---------------------------------
+
+  // --- Polling mechanism to fetch logs every 5 seconds ---
   useEffect(() => {
     const fetchAttendance = async () => {
       try {
-        // You will need to make sure this endpoint exists in your FastAPI backend!
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/dashboard/attendance`);
         
         if (response.ok) {
           const data = await response.json();
-          // Assuming your backend returns a list/array of dictionary logs
           setAttendanceLogs(data); 
         } else {
           console.error("Failed to fetch attendance data.");
@@ -45,20 +86,30 @@ export default function Dashboard() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          class_name: "skibidi toliet"
+          class_name: "10 Tin-LN",
+          subject: "Triết học SkibidiTolietism",
+          teacher_email: teacherData.email
         })
       });
 
       const data = await response.json();
       
-      setResultMessage("Success: " + JSON.stringify(data));
-      
-      navigate('/qr', { 
-        state: { 
-          sessionId: data.session_id, 
-          seed: data.seed 
-        } 
-      });
+      setResultMessage("Success");
+      localStorage.setItem('tempQrSecret', JSON.stringify({
+        sessionId: data.session_id,
+        seed: data.seed
+      }));
+
+      // 2. Open the new tab securely
+      window.open('/qr', '_blank', 'noopener,noreferrer');
+
+      // 3. FAILSAFE: If the user has a popup blocker and the tab never opens, 
+      // delete the secret after 3 seconds anyway so it doesn't leak.
+      setTimeout(() => {
+        localStorage.removeItem('tempQrSecret');
+      }, 3000);
+
+      window.open('/qr', '_blank', 'noopener,noreferrer');
     } catch (error) {
       console.error(error);
       setResultMessage("Error connecting to server.");
@@ -76,7 +127,7 @@ export default function Dashboard() {
             {resultMessage}
         </p>
 
-        {/* --- NEW: The Attendance Table --- */}
+        {/* --- The Attendance Table --- */}
         <div className="table-container">
           <table className="attendance-table">
             <thead>
@@ -88,11 +139,9 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {/* If we have logs, loop through them and render a row for each one */}
               {attendanceLogs.length > 0 ? (
                 attendanceLogs.map((log, index) => (
                   <tr key={index}>
-                    {/* Make sure these variable names match exactly what your Python backend sends! */}
                     <td>{log.name}</td>
                     <td>{log.email}</td>
                     <td>{log.time}</td>
@@ -100,7 +149,6 @@ export default function Dashboard() {
                   </tr>
                 ))
               ) : (
-                /* If the array is empty, show this fallback message */
                 <tr>
                   <td colSpan="4" style={{ textAlign: 'center', color: '#666' }}>
                     Chưa có dữ liệu điểm danh...

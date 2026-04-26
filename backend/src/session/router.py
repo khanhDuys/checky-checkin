@@ -12,7 +12,9 @@ router = APIRouter()
 @router.post("/sessions/")
 async def create_session(session_data: SessionCreateSchema):
     session_info = setup_session(
-        class_name=session_data.class_name
+        class_name=session_data.class_name,
+        subject=session_data.subject,
+        teacher_email=session_data.teacher_email
     )
 
     return SessionResponseSchema(

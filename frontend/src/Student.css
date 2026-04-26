@@ -40,22 +40,23 @@ body {
 
 /* buttons */
 .btn {
+  box-sizing: border-box; /* 🛑 THE ESSENTIAL FIX 🛑 */
   width: 100%;
   padding: 12px;
-  margin: 3px  0px 10px 0px;
-  border: none;
+  margin: 3px 0px 10px 0px;
+  border: 2px solid #DEFFF2;
   border-radius: 16px;
-  background: #37CACF;;
-  font-size: 16px;
+  background: #37CACF;
   cursor: pointer;
   transition: 0.2s;
-  font-size: 22px;
+  font-size: 22px; /* Kept the larger one */
   color: #FFFFFF;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   box-shadow: 0 10px 15px -2px rgba(55, 202, 207, 0.5);
-  border: 2px solid #DEFFF2;
   outline: none;
+  display: inline-block; /* Helps label elements behave like buttons */
+  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 
